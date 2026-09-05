@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ZERO-1 EXPO Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="admin.css"><link rel="stylesheet" href="auth.css"><link rel="stylesheet" href="three-way.css"><link rel="stylesheet" href="mode.css"><link rel="stylesheet" href="space.css"><link rel="stylesheet" href="ufo-visibility.css"><link rel="stylesheet" href="history.css"><link rel="stylesheet" href="timer.css"><link rel="stylesheet" href="admin-header-links.css"><link rel="stylesheet" href="survey-admin.css"><link rel="stylesheet" href="preset.css">
+</head>
+<body class="admin-body">
+  <div class="space-traffic" aria-hidden="true"><img src="assets/ufo-transparent.png" alt=""></div>
+  <header class="admin-header"><a class="brand" href="/"><span class="brand-mark">Z</span><span>ZERO-1 EXPO</span></a><div class="admin-title">ADMIN CONSOLE</div><div class="admin-header-links"><a class="preview-link" href="/" target="_blank">参加者画面 ↗</a></div></header>
+  <section class="login-gate" id="loginGate"><form id="loginForm"><p class="admin-kicker">SECURE ACCESS</p><h1>管理者ログイン</h1><label>メールアドレス<input name="email" type="email" autocomplete="username" required></label><label>パスワード<input name="password" type="password" autocomplete="current-password" required></label><p class="login-error" id="loginError"></p><button class="admin-save">ログイン</button></form></section>
+  <main class="admin-main" id="dashboard" hidden>
+    <section class="admin-heading"><div><p class="admin-kicker">LIVE EVENT CONTROL</p><h1>投票を管理する</h1></div><div class="heading-actions"><button id="logoutButton">ログアウト</button><div class="status-badge" id="statusBadge"><span></span><b>受付中</b></div></div></section>
+    <div class="admin-grid">
+      <section class="admin-card overview-card">
+        <div class="card-heading"><div><p>LIVE OVERVIEW</p><h2 id="adminQuestion">今夜、勝つのはどっちだ？</h2></div><div class="overview-heading-actions"><a class="live-screen-link" id="liveScreenLink" href="/live" target="_blank">ライブ集計画面 ↗</a><span id="updatedAt">更新中</span></div></div>
+        <div class="admin-score"><div><span id="adminNameA">蒼井 レン</span><strong class="score-a" id="adminPercentA">34%</strong><small id="adminCountA">0票</small></div><div><span id="adminNameB">赤城 カイ</span><strong class="score-b" id="adminPercentB">33%</strong><small id="adminCountB">0票</small></div><div><span id="adminNameC">緑川 ソラ</span><strong class="score-c" id="adminPercentC">33%</strong><small id="adminCountC">0票</small></div></div>
+        <div class="meter"><div class="meter-a" id="adminMeterA"></div><div class="meter-b" id="adminMeterB"></div><div class="meter-c" id="adminMeterC"></div></div>
+        <div class="total-block"><span>TOTAL VOTES</span><strong id="adminTotal">0</strong></div>
+      </section>
+      <section class="admin-card controls-card">
+        <div class="card-heading"><div><p>VOTING CONTROL</p><h2>受付ステータス</h2></div></div>
+        <div class="control-buttons"><button data-status="open"><span class="control-icon">▶</span><span><b>投票を開始</b><small>結果を保存して次の投票を開始</small></span></button><button data-status="paused"><span class="control-icon">Ⅱ</span><span><b>一時停止</b><small>現在の結果を保持して停止</small></span></button><button data-status="closed"><span class="control-icon">■</span><span><b>投票を終了</b><small>受付を締め切る</small></span></button></div>
+        <div class="admin-timer" id="adminTimer" hidden><span>投票締切まで</span><strong id="adminTimerValue">00:00</strong></div>
+        <label class="switch-row"><span><b>参加者に途中結果を表示</b><small>オフにすると得票率を隠します</small></span><input type="checkbox" id="showResults"><i></i></label>
+      </section>
+      <section class="admin-card settings-card">
+        <div class="card-heading"><div><p>EVENT SETTINGS</p><h2>対戦カード</h2></div></div>
+        <form id="adminForm"><label>投票形式<select name="optionCount" id="optionCount"><option value="2">2択投票</option><option value="3">3択投票</option></select></label><p class="mode-note">形式は投票開始前、または票のリセット後に変更してください。</p><label>制限時間（分）<input name="timerMinutes" type="number" min="0" max="180" step="1" value="0"><small>0分ならタイマーなし。投票開始時から計測します。</small></label><label>投票の質問<input name="question" maxlength="40"></label><div class="form-grid three-fields"><label>SIDE A<input name="nameA" maxlength="18"></label><label>SIDE B<input name="nameB" maxlength="18"></label><label class="side-c-field">SIDE C<input name="nameC" maxlength="18"></label></div><button class="admin-save">変更を保存</button></form>
+        <div class="preset-panel"><div class="preset-save-row"><input id="presetName" maxlength="30" placeholder="設定名（例：第1試合）"><button id="savePreset" type="button">現在の入力を保存</button></div><p class="preset-help">保存した設定を選ぶとフォームへ反映されます。そのまま「投票を開始」を押してください。</p><div id="presetList" class="preset-list"><span>保存済み設定はありません。</span></div></div>
+      </section>
+      <section class="admin-card danger-card">
+        <div class="card-heading"><div><p>RESULT & RESET</p><h2>投票データ</h2></div></div><p>結果を確定すると履歴に保存され、投票受付が終了します。</p><div class="result-actions"><button id="saveResult">結果を確定・保存</button><button id="adminReset">保存して次の投票へ</button></div>
+      </section>
+      <section class="admin-card survey-admin-card">
+        <div class="card-heading"><div><p>VISITOR SURVEY</p><h2>来場者アンケート</h2></div><strong id="surveyAnswerCount">0 ANSWERS</strong></div>
+        <p>「どの都道府県から来たのか」を一人1回回答してもらいます。</p>
+        <div class="survey-admin-actions"><button id="openSurvey">受付を開始</button><button id="closeSurvey">受付を終了</button><a id="surveyScreenLink" href="/survey-live" target="_blank">日本地図を表示 ↗</a><button id="resetSurvey">回答をリセット</button></div>
+      </section>
+    </div>
+    <section class="history-section"><div class="history-heading"><div><p class="admin-kicker">RESULT ARCHIVE</p><h2>投票履歴</h2></div></div><div class="history-list" id="historyList"><p class="empty-history">履歴を読み込んでいます。</p></div></section>
+  </main><div class="toast" id="toast"></div><script type="module" src="admin.js"></script>
+</body></html>

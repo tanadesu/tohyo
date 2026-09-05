@@ -1,0 +1,127 @@
+.vote-button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.results.results-hidden .score-row,
+.results.results-hidden .meter,
+.results.results-hidden .result-footer {
+  filter: blur(10px);
+  opacity: .18;
+  pointer-events: none;
+}
+
+.vote-policy {
+  margin: 14px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+
+.vote-policy.confirmed {
+  color: #63e7aa;
+}
+
+.confirm-dialog {
+  width: min(440px, calc(100vw - 32px));
+  text-align: center;
+  padding: 38px;
+  background: #111116;
+  color: var(--text);
+  border: 1px solid #36363e;
+}
+
+.confirm-dialog::backdrop {
+  background: rgba(0, 0, 0, .82);
+  backdrop-filter: blur(8px);
+}
+
+.confirm-mark {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 20px;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-size: 22px;
+  font-weight: 800;
+  transform: rotate(3deg);
+}
+
+.confirm-dialog h3 {
+  margin: 12px 0;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.confirm-dialog h3 span {
+  color: var(--cyan);
+}
+
+.confirm-warning {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+}
+
+.confirm-actions button {
+  min-height: 50px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.confirm-cancel {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid #383840;
+}
+
+.confirm-submit {
+  background: var(--text);
+  color: var(--bg);
+  border: 1px solid var(--text);
+}
+
+.is-loading main,
+.is-loading footer {
+  visibility: hidden;
+}
+
+.event-loader {
+  display: none;
+}
+
+.is-loading .event-loader {
+  min-height: calc(100vh - 74px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: .08em;
+}
+
+.event-loader span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  animation: pulse 1.2s infinite;
+}
+
+.fighter-content {
+  justify-content: center;
+  text-align: center;
+}

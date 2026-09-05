@@ -1,0 +1,10 @@
+.space-traffic {
+  opacity: .82;
+  filter: drop-shadow(0 0 22px rgba(116, 205, 255, .58));
+}
+
+.lead {
+  color: #edf3ff;
+  font-weight: 600;
+  text-shadow: 0 2px 14px rgba(0, 0, 12, .9);
+}

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07070a" />
+  <title>ZERO-1 EXPO — Live Vote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="participant.css" />
+  <link rel="stylesheet" href="three-way.css" />
+  <link rel="stylesheet" href="mode.css" />
+  <link rel="stylesheet" href="space.css" />
+  <link rel="stylesheet" href="ufo-visibility.css" />
+  <link rel="stylesheet" href="timer.css" />
+  <link rel="stylesheet" href="vote-complete.css" />
+</head>
+<body class="is-loading">
+  <div class="noise" aria-hidden="true"></div>
+  <div class="space-traffic" aria-hidden="true"><img src="assets/ufo-transparent.png" alt=""></div>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ZERO-1 EXPO ホーム"><span class="brand-mark">Z</span><span>ZERO-1 EXPO</span></a>
+    <div class="live-pill"><span class="live-dot"></span>LIVE</div>
+    <a class="icon-button" href="/admin" aria-label="管理画面を開く">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/></svg>
+    </a>
+  </header>
+
+  <div class="event-loader" id="eventLoader" aria-live="polite"><span></span>投票情報を読み込んでいます</div>
+
+  <main>
+    <section class="hero">
+      <div class="event-meta">
+        <span id="eventTag">SPECIAL MATCH</span>
+        <span class="meta-line"></span>
+        <span id="eventDate"></span>
+      </div>
+      <h1 id="question">今夜、勝つのは<br>どっちだ？</h1>
+      <p class="lead">あなたの予想を一票に。結果はリアルタイムで更新されます。</p>
+      <div class="audience-timer" id="audienceTimer" hidden><span>投票締切まで</span><strong id="audienceTimerValue">00:00</strong></div>
+    </section>
+
+    <section class="arena" aria-label="投票エリア">
+      <article class="fighter fighter-a" data-choice="a">
+        <div class="glow"></div>
+        <div class="fighter-top">
+          <span class="side-label">SIDE A</span>
+          <span class="trend" id="trendA">LEADING</span>
+        </div>
+        <div class="fighter-content">
+          <div>
+            <h2 id="nameA">蒼井 レン</h2>
+          </div>
+        </div>
+        <button class="vote-button" data-vote="a"><span>この勝利を予想する</span><span class="arrow">↗</span></button>
+      </article>
+
+      <div class="versus" aria-hidden="true"><span>V</span><span>S</span></div>
+
+      <article class="fighter fighter-b" data-choice="b">
+        <div class="glow"></div>
+        <div class="fighter-top">
+          <span class="side-label">SIDE B</span>
+          <span class="trend" id="trendB">CATCHING UP</span>
+        </div>
+        <div class="fighter-content">
+          <div>
+            <h2 id="nameB">赤城 カイ</h2>
+          </div>
+        </div>
+        <button class="vote-button" data-vote="b"><span>この勝利を予想する</span><span class="arrow">↗</span></button>
+      </article>
+
+      <div class="versus versus-second" aria-hidden="true"><span>V</span><span>S</span></div>
+
+      <article class="fighter fighter-c" data-choice="c">
+        <div class="glow"></div>
+        <div class="fighter-top">
+          <span class="side-label">SIDE C</span>
+          <span class="trend" id="trendC">CATCHING UP</span>
+        </div>
+        <div class="fighter-content">
+          <div>
+            <h2 id="nameC">緑川 ソラ</h2>
+          </div>
+        </div>
+        <button class="vote-button" data-vote="c"><span>この勝利を予想する</span><span class="arrow">↗</span></button>
+      </article>
+    </section>
+
+    <section class="vote-complete-panel" id="voteCompletePanel" hidden aria-live="polite">
+      <div class="complete-orbit" aria-hidden="true"><span>✓</span></div>
+      <p>VOTE ACCEPTED</p>
+      <h2>投票が完了しました</h2>
+      <strong>結果はステージ上のスクリーンに反映されます</strong>
+      <small>次の投票が始まるまで、このままお待ちください。</small>
+    </section>
+
+    <p class="vote-policy" id="votePolicy">投票は一人1回です。投票後に選択を変更することはできません。</p>
+
+    <section class="results" aria-live="polite" hidden>
+      <div class="result-head">
+        <div><span class="pulse-dot"></span><span>最終投票結果</span></div>
+        <strong><span id="totalVotes">0</span> VOTES</strong>
+      </div>
+      <div class="score-row">
+        <span class="score score-a" id="percentA">50%</span>
+        <span class="score score-b" id="percentB">0%</span>
+        <span class="score score-c" id="percentC">50%</span>
+      </div>
+      <div class="meter" aria-label="得票率">
+        <div class="meter-a" id="meterA"></div>
+        <div class="meter-b" id="meterB"></div>
+        <div class="meter-c" id="meterC"></div>
+      </div>
+      <div class="result-footer">
+        <span id="countA">0票</span>
+        <span id="countB">0票</span>
+        <span id="countC">0票</span>
+      </div>
+      <p class="result-status" id="statusText">あなたの一票で動き出す</p>
+    </section>
+  </main>
+
+  <footer><span>ZERO-1 EXPO / LIVE VOTING SYSTEM</span><span>ONE PERSON, ONE VOTE.</span></footer>
+
+  <dialog class="confirm-dialog" id="confirmDialog">
+    <div class="confirm-mark">?</div>
+    <p class="dialog-kicker">FINAL CONFIRMATION</p>
+    <h3><span id="confirmName"></span>に<br>投票しますか？</h3>
+    <p class="confirm-warning">投票後に選択を変更することはできません。</p>
+    <div class="confirm-actions">
+      <button type="button" class="confirm-cancel" id="confirmCancel">戻る</button>
+      <button type="button" class="confirm-submit" id="confirmSubmit">はい、投票する</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status">投票しました</div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

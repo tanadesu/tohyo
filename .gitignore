@@ -1,0 +1,14 @@
+# Firebase CLI local state and logs
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# OS and editor files
+.DS_Store
+.vscode/
+
+# Dependencies and local environment files
+node_modules/
+.env
+.env.*
+!.env.example

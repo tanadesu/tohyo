@@ -1,0 +1,8 @@
+import { subscribeAuth, subscribeEvent, getMySurveyResponse, submitSurveyResponse, isFirebaseConfigured } from './firebase-service.js';
+import { prefectures } from './prefectures.js';
+const eventId=new URLSearchParams(location.search).get('event')||'main',$=s=>document.querySelector(s);let user=null,event={},answered=false,sending=false;
+prefectures.forEach(name=>{const option=document.createElement('option');option.value=option.textContent=name;$('#prefecture').appendChild(option)});
+function render(){const open=event.surveyOpen===true;$('#surveyForm').hidden=answered||!open;$('#surveyComplete').hidden=!answered;$('#surveyClosed').hidden=answered||open}
+function toast(message){const el=$('#surveyToast');el.textContent=message;el.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('show'),2200)}
+$('#surveyForm').onsubmit=async e=>{e.preventDefault();if(sending||answered||!event.surveyOpen)return;sending=true;e.submitter.disabled=true;try{await submitSurveyResponse(eventId,$('#prefecture').value);answered=true;render();toast('回答を受け付けました')}catch(error){console.error(error);if(error.message==='already-answered'){answered=true;render()}else toast('回答できませんでした')}finally{sending=false;e.submitter.disabled=false}};
+if(!isFirebaseConfigured()){toast('Firebaseの設定が必要です')}else{subscribeAuth(async current=>{user=current;const response=await getMySurveyResponse(eventId);answered=Boolean(response);render()});subscribeEvent(eventId,data=>{if(data.status==='open'&&data.surveyOpen!==true){location.replace(`/?event=${encodeURIComponent(eventId)}`);return}event=data;render()})}render();

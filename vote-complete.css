@@ -1,0 +1,23 @@
+.vote-complete-panel {
+  width: min(760px, calc(100% - 32px));
+  margin: 24px auto 42px;
+  padding: clamp(42px, 7vw, 78px) 24px;
+  text-align: center;
+  border: 1px solid rgba(121, 221, 255, .38);
+  background: linear-gradient(145deg, rgba(17, 34, 73, .88), rgba(4, 9, 28, .9));
+  box-shadow: 0 28px 90px rgba(0, 3, 20, .5), inset 0 1px rgba(255,255,255,.08), 0 0 48px rgba(74, 174, 255, .12);
+  backdrop-filter: blur(18px);
+}
+
+.vote-complete-panel[hidden] { display: none !important; }
+.vote-complete-panel p { margin: 22px 0 8px; color: #61ddff; font: 700 11px "DM Sans", sans-serif; letter-spacing: .24em; }
+.vote-complete-panel h2 { margin: 0; font-size: clamp(30px, 5vw, 52px); text-shadow: 0 0 34px rgba(97,221,255,.25); }
+.vote-complete-panel strong { display: block; margin-top: 20px; color: #e7ecff; font-size: clamp(15px, 2.2vw, 21px); }
+.vote-complete-panel small { display: block; margin-top: 14px; color: #a8b3d1; font-size: 12px; }
+.complete-orbit { display: grid; place-items: center; width: 84px; height: 84px; margin: auto; border: 1px solid rgba(97,221,255,.55); border-radius: 50%; box-shadow: 0 0 35px rgba(97,221,255,.25), inset 0 0 25px rgba(97,221,255,.12); }
+.complete-orbit span { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; color: #04101e; background: linear-gradient(135deg,#fff,#70dfff 55%,#9f8cff); font: 800 25px "DM Sans",sans-serif; }
+body.vote-completed .arena,
+body.vote-completed .vote-policy { display: none; }
+body.final-results .arena,
+body.final-results .vote-policy,
+body.final-results .vote-complete-panel { display: none; }
