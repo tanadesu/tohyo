@@ -1,0 +1,31 @@
+/* Preserve line breaks entered for candidate names on every screen. */
+#nameA,
+#nameB,
+#nameC,
+#confirmName,
+#adminNameA,
+#adminNameB,
+#adminNameC,
+.history-results span,
+.screen-choice h2,
+.preset-select small {
+  white-space: pre-line;
+}
+
+.settings-card textarea {
+  width: 100%;
+  min-height: 68px;
+  resize: vertical;
+  background: #09090c;
+  border: 1px solid #303038;
+  color: var(--text);
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+  outline: 0;
+}
+
+.settings-card textarea:focus {
+  border-color: var(--cyan);
+}

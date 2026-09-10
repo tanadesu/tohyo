@@ -3,7 +3,7 @@
   "hosting": {
     "public": ".",
     "cleanUrls": true,
-    "ignore": ["firebase.json", "firestore.rules", "README.md", "**/.*", "**/node_modules/**"],
+    "ignore": ["firebase.json", "firestore.rules", "README.md", ".git", ".git/**", ".firebase", ".firebase/**", "firebase-debug.log", "**/.*", "**/node_modules/**"],
     "headers": [{ "source": "**/*.@(js|css)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }]
   }
 }
