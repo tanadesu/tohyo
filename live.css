@@ -1,10 +1,7 @@
 :root{--live-blue:#31c8ff;--live-purple:#9a78ff;--live-green:#4ce9cf}
 html,body.live-screen{width:100%;min-height:100%;background:#02091f}
-body.live-screen{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 26%,rgba(42,80,190,.28),transparent 32%),radial-gradient(circle at 8% 48%,rgba(0,186,255,.12),transparent 26%),radial-gradient(circle at 92% 64%,rgba(111,67,255,.14),transparent 27%),linear-gradient(180deg,#04133d 0%,#020922 58%,#010617 100%)}
-body.live-screen::before,body.live-screen::after{content:"";position:fixed;z-index:0;pointer-events:none;border-radius:50%}
-body.live-screen::before{width:min(48vw,820px);aspect-ratio:1;right:min(-25vw,-330px);top:min(-26vw,-350px);border:3px solid rgba(79,178,255,.75);background:radial-gradient(circle at 36% 62%,rgba(94,208,255,.22),transparent 12%),radial-gradient(circle at 52% 55%,#1979d6 0 24%,#0a3b92 45%,#06164b 72%);box-shadow:0 0 34px #248fff,0 0 100px rgba(23,111,255,.7),inset 18px 0 60px rgba(66,202,255,.5);opacity:.78}
-body.live-screen::after{width:min(62vw,1100px);height:min(28vw,480px);left:min(-25vw,-360px);bottom:min(-18vw,-250px);border:3px solid rgba(76,210,255,.65);background:radial-gradient(ellipse at 58% 12%,#126ac5 0,#07356f 27%,#041a46 58%,#02091e 78%);box-shadow:0 0 30px #1ca7ff,0 0 90px rgba(34,122,255,.7);transform:rotate(8deg);opacity:.9}
-.live-screen .result-stars{z-index:1;opacity:.72;background-image:radial-gradient(circle,rgba(255,255,255,.95) 0 1px,transparent 1.8px),radial-gradient(circle,rgba(80,191,255,.9) 0 1.2px,transparent 2px),radial-gradient(circle,rgba(255,255,255,.6) 0 .7px,transparent 1.5px);background-size:83px 83px,137px 137px,47px 47px;background-position:0 0,31px 22px,12px 17px;filter:drop-shadow(0 0 4px #75bfff)}
+body.live-screen{position:relative;min-height:100vh;overflow:hidden;background:#02091f url("assets/live-cosmos-v2.png") center center / cover no-repeat fixed}
+.live-screen .result-stars{display:none}
 .live-screen header{height:clamp(64px,8vh,92px);padding:0 clamp(24px,4vw,76px);border:0;background:linear-gradient(180deg,rgba(1,6,24,.72),transparent);backdrop-filter:none}
 .live-screen .result-brand{font-size:clamp(15px,1.35vw,25px);letter-spacing:.22em;text-shadow:0 0 20px rgba(87,193,255,.45)}
 .live-screen .result-brand span{width:clamp(38px,3.2vw,58px);height:clamp(38px,3.2vw,58px);font-size:clamp(17px,1.4vw,25px);box-shadow:0 0 32px rgba(80,212,255,.75)}
