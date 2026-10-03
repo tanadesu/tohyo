@@ -125,3 +125,10 @@
   justify-content: center;
   text-align: center;
 }
+
+/* スマホでは得票数の多い候補を上から表示 */
+@media (max-width: 720px) {
+  .arena .fighter[data-rank="1"] { order: 1; }
+  .arena .fighter[data-rank="2"] { order: 2; }
+  .arena .fighter[data-rank="3"] { order: 3; }
+}

@@ -22,7 +22,9 @@ function render() {
   $('#totalVotes').textContent=total.toLocaleString('ja-JP'); $('#percentA').textContent=`${a}%`; $('#percentB').textContent=`${b}%`; $('#percentC').textContent=`${c}%`;
   $('#countA').textContent=`${votes.a.toLocaleString('ja-JP')}票`; $('#countB').textContent=`${votes.b.toLocaleString('ja-JP')}票`; $('#countC').textContent=`${votes.c.toLocaleString('ja-JP')}票`; $('#meterA').style.width=`${a}%`; $('#meterB').style.width=`${b}%`; $('#meterC').style.width=`${c}%`;
   $('#question').textContent=event.question; $('#nameA').textContent=event.nameA; $('#nameB').textContent=event.nameB; $('#nameC').textContent=event.nameC;
-  const activeVotes=isThree?[votes.a,votes.b,votes.c]:[votes.a,votes.b],max=Math.max(...activeVotes); $('#trendA').textContent=total&&votes.a===max?'LEADING':'CATCHING UP'; $('#trendB').textContent=total&&votes.b===max?'LEADING':'CATCHING UP'; $('#trendC').textContent=total&&votes.c===max?'LEADING':'CATCHING UP';
+  const activeChoices=isThree?['a','b','c']:['a','b'],activeVotes=activeChoices.map(key=>votes[key]),max=Math.max(...activeVotes),rankedChoices=[...activeChoices].sort((left,right)=>votes[right]-votes[left]||activeChoices.indexOf(left)-activeChoices.indexOf(right));
+  all('.fighter').forEach(card=>{const rank=rankedChoices.indexOf(card.dataset.choice)+1;card.dataset.rank=rank>0?String(rank):''});
+  $('#trendA').textContent=total&&votes.a===max?'LEADING':'CATCHING UP'; $('#trendB').textContent=total&&votes.b===max?'LEADING':'CATCHING UP'; $('#trendC').textContent=total&&votes.c===max?'LEADING':'CATCHING UP';
   const leaders=activeVotes.filter(x=>x===max).length; $('#statusText').textContent=!total?'あなたの一票で動き出す':leaders>1?'現在、同率です':`${max-[...activeVotes].sort((x,y)=>y-x)[1]}票差でリード`;
   $('.arena').classList.toggle('two-choice',!isThree); $('.results').classList.toggle('two-choice',!isThree); $('.fighter-c').hidden=!isThree; $('.versus-second').hidden=!isThree; $('#percentC').hidden=!isThree; $('#countC').hidden=!isThree; $('#meterC').hidden=!isThree;
   all('.fighter').forEach(x=>x.classList.toggle('selected',x.dataset.choice===myVote));
