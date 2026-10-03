@@ -31,6 +31,10 @@ service cloud.firestore {
         allow read: if true;
         allow write: if admin();
       }
+      match /summary/{summaryId} {
+        allow read: if true;
+        allow write: if admin();
+      }
       match /presets/{presetId} {
         allow read, write: if admin();
       }
