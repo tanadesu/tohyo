@@ -1,7 +1,16 @@
 import { subscribeAuth, subscribeEvent, subscribeVotes, isFirebaseConfigured } from './firebase-service.js';
 
-const eventId=new URLSearchParams(location.search).get('event')||'main',$=selector=>document.querySelector(selector);
+const params=new URLSearchParams(location.search),eventId=params.get('event')||'main',debugMode=params.get('debug')==='1',$=selector=>document.querySelector(selector),seenVoteUpdates=new Map();
 let event={question:'投票準備中',nameA:'SIDE A',nameB:'SIDE B',nameC:'SIDE C',optionCount:3,round:1,status:'paused',endsAt:null},votes={a:0,b:0,c:0},votesStarted=false;
+
+if(debugMode)$('#liveLatency').hidden=false;
+function measureVoteLatency(list){
+  const samples=[];
+  list.forEach(vote=>{const millis=vote.updatedAt?.toMillis?.();if(!vote.id||!millis||seenVoteUpdates.get(vote.id)===millis)return;seenVoteUpdates.set(vote.id,millis);const latency=Math.max(0,Date.now()-millis);if(latency<=120000){samples.push(latency);console.info(`[vote-latency] ${latency} ms`,{voteId:vote.id});}});
+  if(!samples.length)return;
+  const latest=Math.min(...samples),label=`直近の反映遅延 ${latest.toLocaleString('ja-JP')}ms`;
+  window.__lastVoteLatencyMs=latest;window.__voteLatencySamples=(window.__voteLatencySamples||[]).concat(samples);if(debugMode)$('#liveLatency').textContent=label;
+}
 
 function remainingSeconds(){const end=event.endsAt?.toMillis?.()??(event.endsAt?new Date(event.endsAt).getTime():0);return end?Math.max(0,Math.ceil((end-Date.now())/1000)):null}
 function render(){
@@ -15,6 +24,6 @@ $('#fullscreenButton').onclick=()=>document.fullscreenElement?document.exitFulls
 document.addEventListener('fullscreenchange',()=>$('#fullscreenButton').textContent=document.fullscreenElement?'全画面を終了':'全画面表示');
 if(!isFirebaseConfigured()){$('#liveError').hidden=false}else{
   subscribeEvent(eventId,data=>{event={...event,...data};render()},()=>{$('#liveError').hidden=false});
-  subscribeAuth(user=>{if(!user||votesStarted)return;votesStarted=true;subscribeVotes(eventId,list=>{votes=list.reduce((counts,vote)=>{if(counts[vote.choice]!==undefined)counts[vote.choice]++;return counts},{a:0,b:0,c:0});render()},()=>{$('#liveError').hidden=false})});
+  subscribeAuth(user=>{if(!user||votesStarted)return;votesStarted=true;subscribeVotes(eventId,list=>{measureVoteLatency(list);votes=list.reduce((counts,vote)=>{if(counts[vote.choice]!==undefined)counts[vote.choice]++;return counts},{a:0,b:0,c:0});render()},()=>{$('#liveError').hidden=false})});
 }
 render();setInterval(render,1000);
