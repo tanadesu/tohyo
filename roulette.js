@@ -460,6 +460,12 @@ document.querySelector('#reset').addEventListener('click', resetSystem);
 document.querySelector('#hide').addEventListener('click', toggleControls);
 document.querySelector('#fullscreen').addEventListener('click', toggleFullscreen);
 document.addEventListener('keydown', event => {
+  // ルーレット画面から管理者画面へ戻るショートカット（Mac：⌘ + Space）。
+  if (event.metaKey && event.code === 'Space') {
+    event.preventDefault();
+    window.location.href = '/admin';
+    return;
+  }
   // 本番表示（操作パネル非表示）ではEnterだけで進行できます。
   if (event.code === 'Enter' && !event.repeat && controls.classList.contains('hidden')) {
     event.preventDefault();
