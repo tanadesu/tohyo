@@ -12,7 +12,7 @@
   <header class="admin-header"><a class="brand" href="/"><span class="brand-mark">Z</span><span>ZERO-1 EXPO</span></a><div class="admin-title">ADMIN CONSOLE</div><div class="admin-header-links"><a class="preview-link" href="/" target="_blank">参加者画面 ↗</a></div></header>
   <section class="login-gate" id="loginGate"><form id="loginForm"><p class="admin-kicker">SECURE ACCESS</p><h1>管理者ログイン</h1><label>メールアドレス<input name="email" type="email" autocomplete="username" required></label><label>パスワード<input name="password" type="password" autocomplete="current-password" required></label><p class="login-error" id="loginError"></p><button class="admin-save">ログイン</button></form></section>
   <main class="admin-main" id="dashboard" hidden>
-    <section class="admin-heading"><div><p class="admin-kicker">LIVE EVENT CONTROL</p><h1>投票を管理する</h1></div><div class="heading-actions"><button id="logoutButton">ログアウト</button><div class="status-badge" id="statusBadge"><span></span><b>受付中</b></div></div></section>
+    <section class="admin-heading"><div><p class="admin-kicker">LIVE EVENT CONTROL</p><h1>投票を管理する</h1></div><div class="heading-actions"><a class="roulette-admin-link" id="rouletteLink" href="/roulette?event=main" target="_blank" rel="noopener">宇宙ルーレット ↗</a><button id="logoutButton">ログアウト</button><div class="status-badge" id="statusBadge"><span></span><b>受付中</b></div></div></section>
     <div class="admin-grid">
       <section class="admin-card overview-card">
         <div class="card-heading"><div><p>LIVE OVERVIEW</p><h2 id="adminQuestion">今夜、勝つのはどっちだ？</h2></div><div class="overview-heading-actions"><a class="live-screen-link" id="liveScreenLink" href="/live" target="_blank">ライブ集計画面 ↗</a><span id="updatedAt">更新中</span></div></div>

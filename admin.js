@@ -2,6 +2,7 @@ import { loginAdmin, logoutAdmin, subscribeAuth, subscribeEvent, subscribeVotes,
 const EVENT_ID=new URLSearchParams(location.search).get('event')||'main';
 document.querySelector('#liveScreenLink').href=`/live?event=${encodeURIComponent(EVENT_ID)}`;
 document.querySelector('#surveyScreenLink').href=`/survey-live?event=${encodeURIComponent(EVENT_ID)}`;
+document.querySelector('#rouletteLink').href=`/roulette?event=${encodeURIComponent(EVENT_ID)}`;
 const base={question:'今夜、勝つのは誰だ？',nameA:'蒼井 レン',nameB:'赤城 カイ',nameC:'緑川 ソラ',optionCount:3,round:1,status:'open',showResults:true,timerMinutes:0,endsAt:null};
 let state=base,votes={a:0,b:0,c:0},history=[],presets=[],stopEvent=null,stopVotes=null,stopHistory=null,stopPresets=null,stopSurvey=null,startingVote=false;const $=s=>document.querySelector(s);
 function remainingSeconds(){const end=state.endsAt?.toMillis?.()??(state.endsAt?new Date(state.endsAt).getTime():0);return end?Math.max(0,Math.ceil((end-Date.now())/1000)):null}

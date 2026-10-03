@@ -1,0 +1,506 @@
+:root {
+  --accent: #E8A84C;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  color: #FFFFFF;
+  background: #101B35;
+  font-synthesis: none;
+}
+.roulette-auth-message {
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  background:#101B35;
+  color:#F5F7FA;
+  font-size:1.2rem;
+  letter-spacing:.08em;
+  z-index:20;
+}
+.roulette-auth-message.visible { visibility:visible; }
+* {
+  box-sizing:border-box}
+body {
+  margin:0;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  overflow:hidden}
+button {
+  font:inherit}
+#stage {
+  width:min(100vw,177.7778svh);
+  aspect-ratio:16/9;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  container-type:inline-size;
+  background:#484d56}
+.space {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 65%, #22375F, #17284A 50%, #101B35);
+}
+.star {
+  position:absolute;
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background:#edf2fb;
+  opacity:var(--opacity);
+  box-shadow:0 0 9px #e4e9f266}
+#warp {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:0;
+  transition:opacity .35s}
+.ship {
+  position:absolute;
+  inset:0;
+  transform: translateZ(0);
+  transform-origin: 50% 48%;
+  will-change: transform, opacity;
+  transition: transform 1.1s cubic-bezier(.45,0,.75,.6), opacity .45s ease-in .65s;}
+.idle-copy {
+  position:absolute;
+  top:32%;
+  left:15%;
+  right:15%;
+  text-align:center;
+  transition:opacity .35s,transform .6s;
+  text-shadow:0 3px 35px #2c313a}
+.muchaburi-logo {
+  display:block;
+  width:min(84cqw, 88vw);
+  max-height:50cqh;
+  height:auto;
+  margin:0 auto;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 22px #080f1d66);
+}
+.eyebrow {
+  font-size:1.05cqw;
+  letter-spacing:.28em;
+  color:#d0d5de;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.9cqw}
+.eyebrow i {
+  width: 1.4cqw;
+  height: 2px;
+  background: var(--accent);
+}
+h1 {
+  font-size:5.3cqw;
+  letter-spacing:.13em;
+  font-weight:500;
+  margin:1.4cqw 0 1cqw;
+  line-height:1.5}
+.idle-copy p {
+  font-size:1.22cqw;
+  letter-spacing:.18em;
+  color:#d2d7e0;
+  margin:0}
+.idle-line {
+  height:1px;
+  width:3cqw;
+  margin:2.7cqw auto;
+  background:#c3c8d180}
+.idle-footer {
+  position:absolute;
+  left:7%;
+  bottom:3.8%;
+  font-size:.85cqw;
+  letter-spacing:.16em;
+  color:#d0d5dea6;
+  transition:opacity .4s}
+.controls {
+  position:absolute;
+  right:5%;
+  bottom:2.4%;
+  display:flex;
+  align-items:center;
+  gap:.5cqw;
+  z-index:12;
+  padding:.35cqw;
+  background:#30353eaa;
+  border:1px solid #ced3dc29;
+  backdrop-filter:blur(16px);
+  border-radius:.65cqw;
+  transition:opacity .25s}
+.controls button {
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:1cqw;
+  color:#dee3ec;
+  background:transparent;
+  border:0;
+  border-radius:.35cqw;
+  padding:.85cqw 1cqw;
+  font-size:.85cqw;
+  white-space:nowrap}
+.topic-picker {
+  display:flex;
+  align-items:center;
+  gap:.55cqw;
+  padding:0 .4cqw 0 .7cqw;
+  color:#dfe4ec;
+  font-size:.78cqw;
+  white-space:nowrap;
+}
+.topic-picker span { opacity:.7; }
+.topic-picker select {
+  max-width:18cqw;
+  color:#17213A;
+  background:#F1F3F7;
+  border:0;
+  border-radius:.3cqw;
+  padding:.58cqw .65cqw;
+  font:inherit;
+  font-size:.78cqw;
+  outline:0;
+}
+.topic-picker select:disabled { opacity:.45; }
+.topic-rule {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:.18cqw;
+  color:#dfe4ec;
+  font-size:.62cqw;
+  white-space:nowrap;
+}
+.topic-rule select {
+  min-width:4.3cqw;
+  color:#17213A;
+  background:#F1F3F7;
+  border:0;
+  border-radius:.3cqw;
+  padding:.58cqw .55cqw;
+  font:inherit;
+  font-size:.75cqw;
+  outline:0;
+}
+.topic-rule select:disabled { opacity:.45; }
+.topic-editor {
+  display:flex;
+  align-items:stretch;
+  gap:.45cqw;
+  color:#dfe4ec;
+  font-size:.78cqw;
+  white-space:nowrap;
+}
+.topic-editor > span {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:.15cqw;
+}
+.topic-editor small {
+  color:#E8A84C;
+  font-size:.6cqw;
+  font-weight:400;
+}
+.topic-editor textarea {
+  width:21cqw;
+  min-height:3.6cqw;
+  resize:none;
+  color:#17213A;
+  background:#F1F3F7;
+  border:0;
+  border-radius:.3cqw;
+  padding:.5cqw .65cqw;
+  font:inherit;
+  font-size:.78cqw;
+  line-height:1.3;
+  outline:0;
+}
+.topic-editor textarea:focus { box-shadow:0 0 0 2px #E8A84C; }
+.topic-editor textarea:disabled { opacity:.42; }
+.save-topic {
+  padding:.65cqw .8cqw!important;
+  color:#17213A!important;
+  background:#E8A84C!important;
+  font-weight:700;
+}
+.save-topic:disabled { opacity:.35; }
+.controls .primary {
+  background:#e3e8f1;
+  color:#353a43;
+  box-shadow:0 2px 12px #1d222b20;
+  font-weight:700}
+.controls button:hover {
+  background:#b1b6bf2b}
+.controls .primary:hover {
+  background:#fff}
+.controls button:disabled {
+  opacity:.4;
+  cursor:default}
+.key {
+  font-family:Arial,sans-serif;
+  font-size:.62cqw;
+  letter-spacing:.04em;
+  opacity:.55}
+.arrow {
+  font-size:1.2cqw}
+.control-divider {
+  height:1.4cqw;
+  width:1px;
+  background:#c8cdd630}
+.controls svg {
+  width:1.1cqw;
+  height:1.1cqw;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5}
+.controls button:focus-visible {
+  outline:2px solid #e0e5ee;
+  outline-offset:2px}
+.controls.hidden {
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden}
+#hint {
+  position:absolute;
+  bottom:10%;
+  width:100%;
+  text-align:center;
+  color:#e7ecf5;
+  font-size:1cqw;
+  z-index:15;
+  pointer-events:none}
+.flight-glow {
+  position:absolute;
+  inset:0;
+  opacity:0;
+  background:radial-gradient(ellipse at center,#f7fcffaa,transparent 60%);
+  pointer-events:none;
+  transition:opacity .5s}
+.flash {
+  position:absolute;
+  inset:0;
+  background:#f3f8ff;
+  opacity:0;
+  pointer-events:none;
+  z-index:10}
+.flash.pulse {
+  animation:flash .65s ease-out}
+.planet {
+  --light:#e3e8f1;
+  --mid:#8a8f98;
+  --dark:#3c414a;
+  position:absolute;
+  width:36.46cqw;
+  height:36.46cqw;
+  left:50%;
+  top:50%;
+  margin:-18.23cqw 0 0 -18.23cqw;
+  opacity:0;
+  transform:scale(.143);
+  transition:transform 1.9s cubic-bezier(.15,.4,.4,1),opacity .45s}
+.planet-body {
+  position: absolute;
+  inset: 0;
+  background: url("assets/space-moon-detail.png") center / contain no-repeat;
+}
+.planet-ring {
+  display: none;
+}
+.result {
+  position: absolute;
+  left: 13%;
+  top: 32.5%;
+  width: 74%;
+  height: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  padding: 1.25cqw 2cqw;
+  border-radius: .625cqw;
+  background: rgba(245,247,250,.96);
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  visibility: hidden;
+}
+.result-label {
+  flex: 0 0 auto;
+  font-size: 1.15cqw;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--accent);
+  margin: 0 0 .65cqw;
+}
+h2 {
+  flex: 0 0 auto;
+  font-size: 6.4cqw;
+  font-weight: 800;
+  color: #16213B;
+  letter-spacing: 0;
+  line-height: 1.14;
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+h2 mark {
+  color: var(--accent);
+  background: none;
+  white-space: nowrap;
+}
+#stage:not([data-phase="idle"]) .idle-copy {
+  opacity:0;
+  transform:translateY(-1cqw);
+  pointer-events:none}
+#stage:not([data-phase="idle"]) .idle-footer {
+  opacity:0}
+.departing .ship {
+  transform:translateZ(0) scale(1.35);
+  opacity:0}
+.in-flight .ship {
+  opacity:0;
+  transform:translateZ(0) scale(1.35)}
+#stage[data-phase="warp"] #warp,#stage[data-phase="launch"] #warp {
+  opacity:1}
+#stage[data-phase="warp"] .flight-glow {
+  opacity:.5}
+.planet-visible .planet {
+  opacity:1}
+.planet-near .planet {
+  transform:scale(1)}
+#stage[data-phase="result"] .result {
+  visibility: visible;
+  opacity: 1;
+  animation: reveal 260ms ease-out;
+}
+@keyframes breathe {
+  50% {
+  opacity:.75}
+}
+@keyframes flash {
+  0% {
+  opacity:0}
+15% {
+  opacity:.12}
+100% {
+  opacity:0}
+}
+@keyframes reveal {
+  from {
+  opacity:0;
+  transform:scale(.94)}
+to {
+  opacity:1;
+  transform:scale(1)}
+}
+
+/* 中央は実際の開口部。奥の宇宙と惑星をフレーム越しに見せます。 */
+
+
+.resetting * {
+  transition:none!important;
+  animation:none!important}
+
+
+/* 着陸後の月面。地形と地球は低彩度、結果だけを明るい面にします。 */
+.moon-scene {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease-out;
+}
+.on-moon .moon-scene { opacity: 1; visibility: visible; }
+.on-moon .planet { opacity: 0; }
+.result-dimmer {
+  position: absolute;
+  inset: 0;
+  background: #101B35;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease-out;
+}
+#stage[data-phase="result"] .result-dimmer { opacity: .22; }
+
+/* 参考画像に合わせた実写的な背景。文字とハッチの動きは独立したHTMLレイヤー。 */
+/* 切り抜きと左右の移動を1枚のCanvasで合成。CSSの重なるclip-pathを使わない。 */
+.ship { background: none; }
+#hatch { width: 100%; height: 100%; display: block; }
+.idle-copy { top: 27%; left: 10%; right: 10%; text-shadow: 0 2px 16px #101B3540; }
+.muchaburi-logo { width: min(84cqw, 88vw); max-height: 50cqh; }
+.eyebrow { font-size: 1.7cqw; font-weight: 700; letter-spacing: .15em; color: #E8C690; gap: 1.6cqw; }
+.eyebrow i { display: none; }
+.eyebrow::before, .eyebrow::after {
+  content: ""; width: 7cqw; height: 1px; background: linear-gradient(90deg, transparent, #E8C690);
+}
+.eyebrow::after { transform: scaleX(-1); }
+h1 { font-size: 6.8cqw; font-weight: 800; letter-spacing: .03em; line-height: 1.2; margin: 1.6cqw 0 2.5cqw; }
+.idle-copy p { font-size: 1.9cqw; font-weight: 600; letter-spacing: .17em; color: #F5F7FA; }
+.idle-line { display: none; }
+.idle-footer { display: none; }
+.moon-scene { background: url("assets/space-lunar-arrival.png") center / cover no-repeat; }
+.result {
+  left: 16%; top: 29%; width: 68%; height: 36%;
+  padding: 1.5cqw 2.5cqw;
+  border-radius: 0;
+  background: linear-gradient(130deg, #FFFFFF, #F1F3F7 60%, #FAFBFC);
+  clip-path: polygon(2.8% 0,97.2% 0,100% 10%,100% 90%,97.2% 100%,2.8% 100%,0 90%,0 10%);
+}
+.result::before, .result::after {
+  content: ""; position: absolute; top: 40%; height: 20%; width: 2px;
+  background: #E8A84C80;
+}
+.result::before { left: .65%; }
+.result::after { right: .65%; }
+.result-label { display: flex; justify-content: center; align-items: center; gap: 1cqw; font-size: 1.3cqw; margin-bottom: 1cqw; }
+.result-label::before, .result-label::after { content: ""; width: 8cqw; height: 1px; background: #E8A84C70; }
+h2 { letter-spacing: -.035em; font-size: 6.4cqw; }
+#stage[data-phase="result"] .result-dimmer { opacity: .12; }
+
+/* 航行中も写実的な背景を維持。光の数ではなく遠近差で速度を表現。 */
+.space-dust, .warp-depth {
+  position: absolute;
+  inset: -4%;
+  background: url("assets/space-deep-space.png") center / cover no-repeat;
+  pointer-events: none;
+}
+.space-dust {
+  opacity: .42;
+  transform: scale(1);
+  transition: opacity 1s, transform 3s cubic-bezier(.2,.5,.4,1);
+}
+.warp-depth {
+  opacity: 0;
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  mask-image: radial-gradient(ellipse, transparent 12%, #000 55%);
+}
+#stage[data-phase="launch"] .space-dust,
+#stage[data-phase="warp"] .space-dust { opacity: .8; transform: scale(1.2); }
+#stage[data-phase="warp"] .warp-depth { animation: tunnel-pass 1.15s linear infinite; }
+#stage[data-phase="approach"] .space-dust { opacity: .32; transform: scale(1.36); }
+@keyframes tunnel-pass {
+  0% { opacity: 0; transform: scale(.84); }
+  30% { opacity: .22; }
+  100% { opacity: 0; transform: scale(1.7); }
+}
+#stage[data-phase="approach"] #warp { opacity: 1; }
+#stage[data-phase="warp"] .flight-glow { opacity: .08; }
+.planet {
+  width: 48cqw;
+  height: 48cqw;
+  margin: -24cqw 0 0 -24cqw;
+  top: 49%;
+  transform: translate(0, 0) scale(.115);
+  transition: transform 2.8s cubic-bezier(.45,.05,.65,1), opacity .65s;
+  will-change: transform, opacity;
+}
+.planet-near .planet { transform: translate(-2cqw, 5cqw) scale(1.2); }
+.on-moon .planet { opacity: 0; transform: translate(-3cqw, 12cqw) scale(1.55); }
+.moon-scene {
+  transform: scale(1.09) translateY(1%);
+  transition: opacity .6s ease-out, transform .6s ease-out;
+}
+.on-moon .moon-scene { transform: scale(1) translateY(0); }
