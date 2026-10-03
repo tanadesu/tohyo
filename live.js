@@ -1,6 +1,6 @@
 import { subscribeAuth, subscribeEvent, subscribeVotes, isFirebaseConfigured } from './firebase-service.js';
 
-const params=new URLSearchParams(location.search),eventId=params.get('event')||'main',debugMode=params.get('debug')==='1',$=selector=>document.querySelector(selector),seenVoteUpdates=new Map();
+const params=new URLSearchParams(location.search),eventId=params.get('event')||'main',debugMode=params.get('debug')==='1',participantView=params.get('from')==='participant',$=selector=>document.querySelector(selector),seenVoteUpdates=new Map();
 let event={question:'投票準備中',nameA:'SIDE A',nameB:'SIDE B',nameC:'SIDE C',optionCount:3,round:1,status:'paused',endsAt:null},votes={a:0,b:0,c:0},votesStarted=false;
 
 if(debugMode)$('#liveLatency').hidden=false;
@@ -23,7 +23,7 @@ function render(){
 $('#fullscreenButton').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
 document.addEventListener('fullscreenchange',()=>$('#fullscreenButton').textContent=document.fullscreenElement?'全画面を終了':'全画面表示');
 if(!isFirebaseConfigured()){$('#liveError').hidden=false}else{
-  subscribeEvent(eventId,data=>{event={...event,...data};render()},()=>{$('#liveError').hidden=false});
+  subscribeEvent(eventId,data=>{if(participantView&&data.status==='open'){location.replace(`/?event=${encodeURIComponent(eventId)}`);return}event={...event,...data};render()},()=>{$('#liveError').hidden=false});
   subscribeAuth(user=>{if(!user||votesStarted)return;votesStarted=true;subscribeVotes(eventId,list=>{measureVoteLatency(list);votes=list.reduce((counts,vote)=>{if(counts[vote.choice]!==undefined)counts[vote.choice]++;return counts},{a:0,b:0,c:0});render()},()=>{$('#liveError').hidden=false})});
 }
 render();setInterval(render,1000);
