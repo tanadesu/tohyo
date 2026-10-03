@@ -460,8 +460,8 @@ document.querySelector('#reset').addEventListener('click', resetSystem);
 document.querySelector('#hide').addEventListener('click', toggleControls);
 document.querySelector('#fullscreen').addEventListener('click', toggleFullscreen);
 document.addEventListener('keydown', event => {
-  // ルーレット画面から管理者画面へ戻るショートカット（Mac：⌘ + Space）。
-  if (event.metaKey && event.code === 'Space') {
+  // ルーレット画面から管理者画面へ戻るショートカット（Mac：⌘ + Shift + Space）。
+  if (event.metaKey && event.shiftKey && event.code === 'Space') {
     event.preventDefault();
     window.location.href = '/admin';
     return;
