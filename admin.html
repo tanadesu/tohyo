@@ -25,6 +25,7 @@
         <div class="control-buttons"><button data-status="open"><span class="control-icon">▶</span><span><b>投票を開始</b><small>結果を保存して次の投票を開始</small></span></button><button data-status="paused"><span class="control-icon">Ⅱ</span><span><b>一時停止</b><small>現在の結果を保持して停止</small></span></button><button data-status="closed"><span class="control-icon">■</span><span><b>投票を終了</b><small>受付を締め切る</small></span></button></div>
         <div class="admin-timer" id="adminTimer" hidden><span>投票締切まで</span><strong id="adminTimerValue">00:00</strong></div>
         <label class="switch-row"><span><b>参加者に途中結果を表示</b><small>オフにすると得票率を隠します</small></span><input type="checkbox" id="showResults"><i></i></label>
+        <div class="manual-vote-panel"><p>スマホなしの代理投票</p><small>会場スタッフが1票ずつ追加できます</small><div class="manual-vote-buttons"><button type="button" data-manual-vote="a"><span id="manualNameA">SIDE A</span>に1票追加</button><button type="button" data-manual-vote="b"><span id="manualNameB">SIDE B</span>に1票追加</button><button type="button" data-manual-vote="c"><span id="manualNameC">SIDE C</span>に1票追加</button></div></div>
       </section>
       <section class="admin-card settings-card">
         <div class="card-heading"><div><p>EVENT SETTINGS</p><h2>対戦カード</h2></div></div>
